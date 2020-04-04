@@ -1,4 +1,20 @@
-import { info } from '@lib/log'
+import {
+  info
+} from '@lib/log'
+import {
+  options
+} from '@lib/options'
+import {
+  importCommand
+} from './commands'
+import { loadMiddlewares } from '@lib/middlewares'
 
+async function run () {
+  await loadMiddlewares()
 
-info('hey there')
+  const [ command ] = options.get('_')
+
+  if (command === 'import') importCommand(options)
+}
+
+run()

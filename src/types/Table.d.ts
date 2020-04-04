@@ -1,0 +1,1 @@
+interface Table extends Array<Row>{}

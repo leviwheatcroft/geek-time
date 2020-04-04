@@ -2,6 +2,7 @@ const sizeAnalyzer = require('webpack-bundle-size-analyzer')
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 const webpack = require('webpack')
+const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
 
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -13,6 +14,9 @@ module.exports = {
   externals: [nodeExternals()],
   // devtool: 'inline-source-map',
   plugins: [
+    new FilterWarningsPlugin({
+      exclude: /Critical dependency: the request of a dependency is an expression/
+    }),
     new sizeAnalyzer.WebpackBundleSizeAnalyzerPlugin(
       '.webpack.cli.txt'
     ),
@@ -34,8 +38,7 @@ module.exports = {
             }
           }
         ],
-        exclude: /node_modules/,
-        
+        exclude: /node_modules/
       }
     ]
   },

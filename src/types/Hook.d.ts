@@ -1,0 +1,1 @@
+type Hook = 'input' | 'output'
