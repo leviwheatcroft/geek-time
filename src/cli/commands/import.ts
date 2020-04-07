@@ -8,8 +8,8 @@ import {
   isTable
 } from '@typeGuards'
 import {
-  applyMiddlewares
-} from '@lib/middlewares'
+  applyPlugins
+} from '@lib/plugins'
 import asyncPool from 'tiny-async-pool'
 import {
   TagModel,
@@ -28,7 +28,7 @@ export async function importCommand (options: nconf.Provider) {
   const file = options.get('file')
   const read = await readFile(file, 'utf-8')
   const table = csv.toTable(read)
-  await applyMiddlewares('input', table)
+  await applyPlugins('input', table)
   await TagModel.resolveTags(table)
   await RowModel.upsertTable(table)
 }

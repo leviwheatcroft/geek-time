@@ -4,6 +4,9 @@ declare module "mongoose" {
     tableMeta: {
       [key: string]: any
     },
+    pluginOptions?: {
+      [key: string]: any
+    },
     options: {
       [key: string]: any
     },

@@ -8,11 +8,11 @@ import {
   importCommand,
   exportCommand
 } from './commands'
-import { loadMiddlewares } from '@lib/middlewares'
+import { loadPlugins } from '@lib/plugins'
 import { connect, disconnect } from '@lib/db'
 
 async function run () {
-  await loadMiddlewares()
+  await loadPlugins()
   await connect()
 
   const [ command ] = options.get('_')

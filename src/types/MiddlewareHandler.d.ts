@@ -1,1 +1,0 @@
-type MiddlewareHandler = (ctx: Context) => Promise<void> | void

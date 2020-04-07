@@ -1,0 +1,3 @@
+interface PluginDefinition {
+  uri: string
+}

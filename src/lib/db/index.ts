@@ -31,7 +31,7 @@ export function connect() {
   // you can't simply `connection = await mongoost.connect()` because in that
   // case the global `connection` would remain undefined until the promise
   // is resolved
-  instance = mongoose.connect(options.get('mongodbUri'))
+  instance = mongoose.connect(options.get('core:mongodbUri'))
   instance.catch((err) => {
     console.error(err)
     console.log('MongooseDB connection error.')

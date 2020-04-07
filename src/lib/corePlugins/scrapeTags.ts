@@ -1,8 +1,9 @@
 import {
   isString
 } from '@typeGuards'
+import mongoose from 'mongoose'
 
-const scrapeTags: MiddlewareHandler = function scrapeTags (
+const scrapeTags: mongoose.PluginHandler = function scrapeTags (
   ctx
 ) {
   const {

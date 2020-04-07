@@ -5,6 +5,7 @@ import {
   verbose
 } from '@lib/log'
 import toMoment from 'moment'
+import mongoose from 'mongoose'
 
 const formats = [
   'YYYY-MM-DD',
@@ -13,7 +14,7 @@ const formats = [
   'DD/MM/YYYY',
   'DD-MM-YYYY'
 ]
-const scrapeDates: MiddlewareHandler = function scrapeDates (
+const scrapeDates: mongoose.PluginHandler = function scrapeDates (
   ctx
 ) {
   const {

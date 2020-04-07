@@ -18,8 +18,8 @@ export function isTable (value: any): value is mongoose.Table {
   //   Issue: https://github.com/woutervh-/typescript-is/issues/5
   if (Array.isArray(value)) return true
 }
-export function isMiddleware (value: any): value is Middleware {
-  if (is<Middleware>(value)) return true
+export function isPlugin (value: any): value is mongoose.Plugin {
+  if (is<mongoose.Plugin>(value)) return true
 }
 export function isMongooseTagDocument (
   value: any

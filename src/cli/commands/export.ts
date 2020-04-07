@@ -10,8 +10,8 @@ import {
   isTable
 } from '@typeGuards'
 import {
-  applyMiddlewares
-} from '@lib/middlewares'
+  applyPlugins
+} from '@lib/plugins'
 import asyncPool from 'tiny-async-pool'
 import {
   TagModel,
@@ -44,7 +44,7 @@ export async function exportCommand (options: nconf.Provider) {
     }
   )
 
-  applyMiddlewares('output', table)
+  applyPlugins('output', table)
   info('export result')
   info(table)
   const file = options.get('file')
