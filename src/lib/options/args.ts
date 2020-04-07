@@ -1,26 +1,17 @@
 import yargs from 'yargs'
-import {
-  readFileSync
-} from 'fs'
-import {
-  importData
-} from '@lib/importData'
-import {
-  isString
-} from '@typeGuards'
-import {
-  importCommand
-} from '../../cli/commands/import'
 
 export const args = yargs
   .command(
     'import <file>',
-    'import records from file',
-    // (argv) => {
-    //   argv.positional('file', {
-    //     describe: 'file to import data from',
-    //     type: 'string'
-    //   })
-    // }
+    'import records from file'
   )
+  .command(
+    'export <file>',
+    'export records to file'
+  )
+  .option('tags', {
+    type: 'string',
+    description: 'filter by tags, comma separated',
+    coerce: (tags) => tags.split(',').map((t) => t.trim())
+  })
 

@@ -39,15 +39,17 @@ const log = Object.fromEntries(levels.map((l) => {
 
       const pt = new PrettyTable()
       const table = [
-        Object.keys(initial[0]),
+        Object.keys(initial[0].data),
         [
-          ...initial.map((row) => {
-            const item = Object.values(row).map((field) => {
+          ...initial.map(({ data }) => {
+            const item = Object.values(data).map((field) => {
 
               if (field instanceof Date) field = field.toString()
               if (Array.isArray(field)) field = field.join(', ')
-              if (!isString(field))
+              if (!isString(field)) {
+                error(field)
                 throw new RangeError()
+              }
               return field.slice(0, 20)
             })
             return item

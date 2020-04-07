@@ -4,7 +4,7 @@ import {
 import {
   verbose
 } from '@lib/log'
-import moment from 'moment'
+import toMoment from 'moment'
 
 const formats = [
   'YYYY-MM-DD',
@@ -19,20 +19,18 @@ const scrapeDates: MiddlewareHandler = function scrapeDates (
   const {
     table
   } = ctx
-  table.forEach((row) => {
-    let tags = []
-    Object.keys(row).forEach((column) => {
-      const field = row[column]
-      if (!isString(field)) return
-      let asMoment: moment.Moment
+  table.forEach(({ data, meta }) => {
+    Object.entries(data).forEach(([key, value]) => {
+      if (!isString(value)) return
+      let moment: toMoment.Moment
       const isDateString = formats.some((format) => {
-        asMoment = moment(field, format)
-        return asMoment.isValid()
+        moment = toMoment(value, format)
+        return moment.isValid()
       })
       if (!isDateString) return
-      const asDate = asMoment.toDate()
-      row[column] = asDate
-      if (!row._date) row._date = asDate
+      const date = moment.toDate()
+      data[key] = date
+      if (!meta.date) meta.date = date
     })
   })
 }

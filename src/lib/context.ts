@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import nconf from 'nconf'
 import {
   silly,
@@ -7,13 +8,13 @@ import {
   error
 } from '@lib/log'
 export function context (
-  table: Table,
+  table: mongoose.Table,
   options: nconf.Provider
-): Context {
-  const meta = {}
+): mongoose.Context {
+  const tableMeta = {}
   return {
     table,
-    meta,
+    tableMeta,
     options,
     log: {
       silly,

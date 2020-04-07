@@ -6,24 +6,19 @@ const scrapeTags: MiddlewareHandler = function scrapeTags (
   ctx
 ) {
   const {
-    table,
-    meta,
-    options,
-    log: {
-      verbose
-    }
+    table
   } = ctx
-  table.forEach((row) => {
-    let tags = []
-    Object.keys(row).forEach((column) => {
-      const field = row[column]
-      if (!isString(field)) return
-      tags = tags.concat(field.match(/#\w*/g))
-      row._tags = tags.filter((tag, i, self) => {
-        if (tag === null) return false
-        if (self.indexOf(tag) === i) return true
-      })
+  table.forEach(({ data, meta }) => {
+    let tagNames = []
+    Object.entries(data).forEach(([key, value]) => {
+      if (!isString(value)) return
+      tagNames = tagNames.concat(value.match(/#[^\s]*/g))
     })
+    tagNames = tagNames.filter((tag, i, self) => {
+      if (tag === null) return false
+      if (self.indexOf(tag) === i) return true
+    })
+    meta.tagNames = tagNames
   })
 }
 

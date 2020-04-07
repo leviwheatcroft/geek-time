@@ -5,6 +5,7 @@ import {
 import { info } from '@lib/log'
 
 nconf.argv(args)
+nconf.file('config.json')
 
 nconf.defaults({
   middlewares: []

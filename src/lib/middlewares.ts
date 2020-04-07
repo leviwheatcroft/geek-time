@@ -12,6 +12,7 @@ import {
   error
 } from './log'
 import corePlugins from './corePlugins'
+import mongoose from 'mongoose'
 
 
 const middlewareDefinitions = [
@@ -28,7 +29,10 @@ export async function loadMiddlewares () {
   })
 }
 
-export async function applyMiddlewares (hook: Hook, table: Table) {
+export async function applyMiddlewares (
+  hook: Hook,
+  table: mongoose.Table
+) {
   const ctx = context(table, options)
   for await (const middleware of middlewares) {
     if (!middleware[hook]) return
@@ -37,7 +41,7 @@ export async function applyMiddlewares (hook: Hook, table: Table) {
       verbose(`${middleware.name} data:`)
       verbose(ctx.table)
       verbose(`${middleware.name} meta:`)
-      verbose(ctx.meta)
+      verbose(ctx.tableMeta)
     } catch (err) {
       error(`${middleware.name} threw error.`)
       error(err)

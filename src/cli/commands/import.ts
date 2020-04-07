@@ -10,6 +10,14 @@ import {
 import {
   applyMiddlewares
 } from '@lib/middlewares'
+import asyncPool from 'tiny-async-pool'
+import {
+  TagModel,
+  RowModel
+} from "@lib/db"
+import {
+  csv
+} from '@lib/transformers'
 
 const {
   readFile
@@ -19,9 +27,8 @@ export async function importCommand (options: nconf.Provider) {
   info('import command')
   const file = options.get('file')
   const read = await readFile(file, 'utf-8')
-  const parsed = papa.parse(read, { header: true })
-  const table = parsed.data
-  if (!isTable(table))
-    throw new RangeError()
-  applyMiddlewares('input', table)
+  const table = csv.toTable(read)
+  await applyMiddlewares('input', table)
+  await TagModel.resolveTags(table)
+  await RowModel.upsertTable(table)
 }
