@@ -38,7 +38,7 @@ export async function applyPlugins (
 ) {
   const ctx = context(table, options)
   for await (const plugin of Object.values(plugins)) {
-    if (!plugin[hook]) return
+    if (!plugin[hook]) continue
     ctx.pluginOptions = options.get(`plugins:${plugin.name}`)
     try {
       await plugin[hook](ctx)

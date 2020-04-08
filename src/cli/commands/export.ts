@@ -1,4 +1,4 @@
-import { info } from "@lib/log"
+import { info, verbose } from "@lib/log"
 import nconf from 'nconf'
 import {
   promises as fsPromises
@@ -34,7 +34,7 @@ export async function exportCommand (options: nconf.Provider) {
       lean: true
     }
   ) as Array<{ _id: string }>
-  const table = await RowModel.find(
+  let table = await RowModel.find(
     {
       'meta.tags': { $in: tagIds }
     },
@@ -43,7 +43,7 @@ export async function exportCommand (options: nconf.Provider) {
       lean: true
     }
   )
-
+  verbose('got results', table)
   applyPlugins('output', table)
   info('export result')
   info(table)

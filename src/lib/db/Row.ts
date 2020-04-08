@@ -6,6 +6,7 @@ import asyncPool from 'tiny-async-pool'
 //   isRow
 // } from '@typeGuards'
 import { info } from '@lib/log'
+import mongooseLeanId from 'mongoose-lean-id'
 
 const {
   Types: { ObjectId }
@@ -29,6 +30,8 @@ const rowSchema = new mongoose.Schema(
     timestamps: true
   }
 )
+
+rowSchema.plugin(mongooseLeanId)
 
 async function upsert (this: mongoose.RowDocument) {
   await RowModel.findOneAndUpdate(
