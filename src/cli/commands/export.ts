@@ -41,7 +41,7 @@ export async function exportCommand (options: nconf.Provider) {
     }
   )
   verbose('got results', { table })
-  applyPlugins('output', table)
+  await applyPlugins('output', table)
   info('export result', { table })
   const file = options.get('file')
   await writeFile(file, csv.fromTable(table))

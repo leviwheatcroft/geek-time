@@ -36,6 +36,7 @@
     "prettytable": "^0.3.1",
     "tiny-async-pool": "^1.1.0",
     "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.4.2",
     "winston-mongodb": "^5.0.1",
     "yargs": "^15.3.1"
   },

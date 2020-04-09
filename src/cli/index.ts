@@ -1,7 +1,6 @@
 import {
   info,
-  initialiseLog,
-  disconnectLog
+  initialiseLog
 } from '@lib/log'
 import {
   options
@@ -33,7 +32,6 @@ async function run () {
   if (command === 'export') await exportCommand(options)
 
   info('disconnecting')
-  disconnectLog()
   disconnectDb()
 }
 

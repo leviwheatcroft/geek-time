@@ -4,9 +4,8 @@ import {
   transports,
   Logger
 } from 'winston'
-import {
-  MongoDB as MongoDbTransport
-} from 'winston-mongodb'
+import 'winston-daily-rotate-file'
+
 import {
   inspect
 } from 'util'
@@ -25,8 +24,7 @@ export let logger: Promise<Logger> = new Promise((resolve, reject) => {
 export function initialiseLog () {
   const {
     LOG_LEVEL_CONSOLE: logLevelConsole = 'info',
-    LOG_LEVEL_DB: logLevelDb = 'info',
-    MONGO_DB_URI
+    LOG_LEVEL_FILE: logLevelFile = 'info'
   } = process.env
   const _logger = createLogger({
     format: format.combine(
@@ -88,31 +86,21 @@ export function initialiseLog () {
           return formatted.join('\n')
         })
       }),
-      new MongoDbTransport({
-        db: MONGO_DB_URI,
-        silent: logLevelDb === 'off',
-        level: logLevelDb,
-        collection: 'logs',
-        options: {
-          useUnifiedTopology: true
-        }
-      }),
+      new transports.DailyRotateFile({
+        silent: logLevelFile === 'off',
+        level: logLevelFile === 'off' ? 'error' : logLevelFile,
+        filename: 'geektime-%DATE%.log',
+        maxSize: '20m',
+        maxFiles: '14d',
+        dirname: 'logs',
+        createSymlink: true,
+        symlinkName: 'geektime.log'
+      })
     ]
   })
 
   _logger.info('log started')
   loggerResolve(_logger)
-}
-
-export async function disconnectLog () {
-  const _logger = await logger
-  try {
-    // will throw if something is in flight
-    _logger.end()
-  } catch (err) {
-    // if something in flight, set listener for 'finish'
-    _logger.on('finish', () => _logger.end())
-  }
 }
 
 export function error (message: string, meta?: { [key: string]: any }) {

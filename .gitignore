@@ -4,3 +4,5 @@ test
 config.json
 plugins
 .env.local
+logs
+!logs/.gitignore
