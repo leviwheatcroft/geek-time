@@ -2,6 +2,7 @@ import {
   isString
 } from '@typeGuards'
 import mongoose from 'mongoose'
+import { error, info } from '@lib/log'
 
 const scrapeTags: mongoose.PluginHandler = function scrapeTags (
   ctx
@@ -21,6 +22,7 @@ const scrapeTags: mongoose.PluginHandler = function scrapeTags (
     })
     meta.tagNames = tagNames
   })
+  
 }
 
 export const name = 'scrapeTags'

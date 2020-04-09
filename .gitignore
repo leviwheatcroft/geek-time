@@ -3,3 +3,4 @@ dist
 test
 config.json
 plugins
+.env.local

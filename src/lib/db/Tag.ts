@@ -22,7 +22,6 @@ async function resolveTags(table: mongoose.Table): Promise<void> {
   const cache = {}
   await asyncPool(16, table, async ({ data, meta }) => {
     const tags = []
-    verbose('meta', meta)
     for await (const name of meta.tagNames) {
       if (!cache[name]) {
         const tag = await TagModel.findOneAndUpdate(

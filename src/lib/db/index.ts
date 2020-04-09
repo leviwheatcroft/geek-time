@@ -1,7 +1,4 @@
 import mongoose from 'mongoose'
-import {
-  options
- } from '@lib/options'
 export {
   RowModel
 } from './Row'
@@ -14,6 +11,8 @@ export {
 
 let instance: Promise<typeof mongoose>
 
+
+
 /**
  * ## connect
  * this fn is unusual in that it's not declared as an `async` function, but
@@ -21,7 +20,10 @@ let instance: Promise<typeof mongoose>
  * note that it returns a mongoose instance, so if you want the mongo db
  * connection, you need to `connection = (await db.connect()).connection`
  */
-export function connect() {
+export function initialiseDb() {
+  const {
+    MONGO_DB_URI
+  } = process.env
   if (instance) return instance
   mongoose.set('useFindAndModify', false)
   mongoose.set('useCreateIndex', true)
@@ -31,7 +33,7 @@ export function connect() {
   // you can't simply `connection = await mongoost.connect()` because in that
   // case the global `connection` would remain undefined until the promise
   // is resolved
-  instance = mongoose.connect(options.get('core:mongodbUri'))
+  instance = mongoose.connect(MONGO_DB_URI)
   instance.catch((err) => {
     console.error(err)
     console.log('MongooseDB connection error.')
@@ -41,6 +43,7 @@ export function connect() {
   return instance
 }
 
-export function disconnect() {
-  return instance.then((connection) => connection.disconnect())
+export async function disconnectDb() {
+  const connection = await instance
+  connection.disconnect()
 }

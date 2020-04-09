@@ -26,6 +26,7 @@
     "@types/papaparse": "^5.0.3",
     "config": "^3.3.1",
     "debug": "^4.1.1",
+    "dotenv-flow": "^3.1.0",
     "moment": "^2.24.0",
     "mongoose": "^5.9.7",
     "mongoose-lean-id": "^0.2.0",
@@ -34,6 +35,8 @@
     "papaparse": "^5.2.0",
     "prettytable": "^0.3.1",
     "tiny-async-pool": "^1.1.0",
+    "winston": "^3.2.1",
+    "winston-mongodb": "^5.0.1",
     "yargs": "^15.3.1"
   },
   "devDependencies": {

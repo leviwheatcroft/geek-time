@@ -1,5 +1,7 @@
 import {
-  info
+  info,
+  initialiseLog,
+  disconnectLog
 } from '@lib/log'
 import {
   options
@@ -8,12 +10,22 @@ import {
   importCommand,
   exportCommand
 } from './commands'
+import dotEnv from 'dotenv-flow'
 import { loadPlugins } from '@lib/plugins'
-import { connect, disconnect } from '@lib/db'
+import {
+  initialiseDb,
+  disconnectDb
+} from '@lib/db'
+
+dotEnv.config()
+console.log('dotenv')
+console.log(process.env.MONGO_DB_URI)
 
 async function run () {
+  await initialiseDb()
+  initialiseLog()
   await loadPlugins()
-  await connect()
+  
 
   const [ command ] = options.get('_')
 
@@ -21,7 +33,8 @@ async function run () {
   if (command === 'export') await exportCommand(options)
 
   info('disconnecting')
-  await disconnect()
+  disconnectLog()
+  disconnectDb()
 }
 
 run()

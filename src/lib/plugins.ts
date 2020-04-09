@@ -9,7 +9,8 @@ import {
 } from '@typeGuards'
 import {
   verbose,
-  error
+  error,
+  info
 } from './log'
 import corePlugins from './corePlugins'
 import mongoose from 'mongoose'
@@ -36,20 +37,24 @@ export async function applyPlugins (
   hook: Hook,
   table: mongoose.Table
 ) {
+  info('apply plugins')
   const ctx = context(table, options)
   for await (const plugin of Object.values(plugins)) {
     if (!plugin[hook]) continue
     ctx.pluginOptions = options.get(`plugins:${plugin.name}`)
     try {
       await plugin[hook](ctx)
-      verbose(`${plugin.name} data:`)
-      verbose(ctx.table)
-      verbose(`${plugin.name} meta:`)
-      verbose(ctx.tableMeta)
+      verbose(`${plugin.name} data:`, {
+        table: ctx.table,
+        tableMeta: ctx.tableMeta
+      })
     } catch (err) {
       error(`${plugin.name} threw error.`)
       error(err)
-      error(ctx.table)
+      error(`${plugin.name} data:`, {
+        table: ctx.table,
+        tableMeta: ctx.tableMeta
+      })
     }
   }
 }

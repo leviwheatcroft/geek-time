@@ -13,7 +13,7 @@ const rowId: mongoose.PluginHandler = function rowId (
   const {
     table
   } = ctx
-  verbose('table', table)
+  verbose('table', { table })
   table.forEach((row) => {
     row.data.id = row.id
   })

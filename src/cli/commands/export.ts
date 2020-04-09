@@ -7,9 +7,6 @@ import {
   csv
 } from '@lib/transformers'
 import {
-  isTable
-} from '@typeGuards'
-import {
   applyPlugins
 } from '@lib/plugins'
 import asyncPool from 'tiny-async-pool'
@@ -43,10 +40,9 @@ export async function exportCommand (options: nconf.Provider) {
       lean: true
     }
   )
-  verbose('got results', table)
+  verbose('got results', { table })
   applyPlugins('output', table)
-  info('export result')
-  info(table)
+  info('export result', { table })
   const file = options.get('file')
   await writeFile(file, csv.fromTable(table))
 
