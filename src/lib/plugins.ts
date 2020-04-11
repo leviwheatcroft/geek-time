@@ -63,8 +63,9 @@ export async function applyPlugins () {
   const entries = Object.entries(plugins)
   for await (const [name, plugin] of entries) {
     ctx.pluginOptions = options.plugins[name]
+    const middlewareName = options.plugins[name].middleware || 'middleware'
     try {
-      await plugin.middleware(ctx)
+      await plugin[middlewareName](ctx)
       verbose(`${plugin.name} data:`, {
         table: ctx.table,
         tableMeta: ctx.tableMeta

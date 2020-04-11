@@ -22,14 +22,17 @@ function middleware (ctx) {
       if (
         (include !== true) &&
         (!include.includes(key))
-      ) return
-      if (!is.string(value)) return
+      )
+        return false
+      if (!is.string(value))
+        return false
       let moment
       const isDateString = formats.some((format) => {
         moment = toMoment(value, format)
         return moment.isValid()
       })
-      if (!isDateString) return
+      if (!isDateString)
+        return false
       date = moment.toDate()
       return true
     })

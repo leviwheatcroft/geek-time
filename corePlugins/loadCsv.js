@@ -2,6 +2,7 @@ const papa = require('papaparse')
 const {
   promises: fsPromises
 } = require('fs')
+
 const {
   readFile
 } = fsPromises
@@ -24,7 +25,7 @@ function toTable (csv) {
     let rawRow
     if (data.id) {
       rawRow = {
-        _id: new ObjectId(data.id),
+        _id: data.id,
         data,
         meta: []
       }
@@ -40,6 +41,7 @@ function toTable (csv) {
   return table
 }
 
+// eslint-disable-next-line no-unused-vars
 function fromTable (table) {
   const rowData = table.map(({ data }) => data)
 
