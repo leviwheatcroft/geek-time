@@ -6,8 +6,15 @@ import {
   getDefaultOptions, loadPlugins
 } from '@lib/plugins'
 import { error } from '@lib/log'
-// import debug from 'debug'
-// const dbg = debug('gt')
+import {
+  promises as fsPromises
+} from 'fs'
+const {
+  readFile
+} = fsPromises
+import yaml from 'yaml'
+import debug from 'debug'
+const dbg = debug('gt')
 
 export const options: Options = {
   get: (path: string) => get(options, path),
@@ -15,13 +22,21 @@ export const options: Options = {
   plugins: {}
 }
 
+// loadOptions
+// paths for import() are mangled by typescript, so they will be relative
+// to the output directory
+// paths for readFile are not, so they must be specified relative to cwd
 export async function loadOptions () {
-  let fileOptions
-  try {
-    fileOptions = await import(`../../config/${process.argv[2]}`)
-  } catch (err) {
-    error('couldn\'t import config')
-  }
+  const fileOptions = await import(`../../config/${process.argv[2]}`)
+  .catch(() => {
+    return readFile(`./config/${process.argv[2]}.yaml`, 'utf8')
+      .then((raw) => yaml.parse(raw))
+  })
+  .catch((err) => {
+    console.error('couldn\'t import config')
+    throw err
+  })
+
 
   await loadPlugins(fileOptions.plugins)
   

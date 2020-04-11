@@ -17,7 +17,13 @@ import {
 dotEnv.config()
 
 async function run () {
-  await loadOptions()
+  try {
+    await loadOptions()
+  } catch (err) {
+    
+    console.error('error loading options')
+    console.error(err)
+  }
   await initialiseDb()
   await applyPlugins()
   await disconnectDb()

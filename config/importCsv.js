@@ -3,6 +3,8 @@ module.exports = {
     loadCsv: {
       file: 'test/testData.csv'
     },
+    parseDate: {},
+    parseTags: {},
     selectColumns: {
       include: [
         'date',

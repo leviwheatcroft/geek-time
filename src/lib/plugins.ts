@@ -9,8 +9,8 @@ import {
   error,
   info
 } from './log'
-// import debug from 'debug'
-// const dbg = debug('gt')
+import debug from 'debug'
+const dbg = debug('gt')
 
 import mongoose from 'mongoose'
 
@@ -26,8 +26,9 @@ export async function loadPlugins (
     const plugin: mongoose.Plugin = await import(module)
     .catch(() => import(`../../corePlugins/${module}`))
     .catch(() => import(`../../plugins/${module}`))
-    .catch(() => {
-      throw new Error(`couldn't load plugin: ${module}`)
+    .catch((err) => {
+      console.error(`couldn't load plugin: ${module}`)
+      throw err
     })
     
     _plugins[name] = plugin

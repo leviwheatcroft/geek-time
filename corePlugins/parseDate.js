@@ -13,7 +13,8 @@ const formats = [
 function middleware (ctx) {
   const {
     table,
-    pluginOptions: { include }
+    pluginOptions: { include },
+    is
   } = ctx
   table.forEach(({ data, meta }) => {
     let date
@@ -22,7 +23,7 @@ function middleware (ctx) {
         (include !== true) &&
         (!include.includes(key))
       ) return
-      if (!isString(value)) return
+      if (!is.string(value)) return
       let moment
       const isDateString = formats.some((format) => {
         moment = toMoment(value, format)

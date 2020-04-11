@@ -8,7 +8,8 @@ function middleware (ctx) {
       autoMultiTag,
       include,
       exclude
-    }
+    },
+    is
   } = ctx
   table.forEach(({ data, meta }) => {
     let tagNames = []
@@ -18,7 +19,7 @@ function middleware (ctx) {
         (!include.includes(key))
       ) return
       if (exclude.includes(key)) return
-      if (!isString(value)) return
+      if (!is.string(value)) return
 
       if (autoSingleTag.includes(key)) {
         value = value.replace(/\s/, '-')
@@ -77,4 +78,11 @@ function checkOptions () {
   ) errors.push('exclude must be array of strings')
 
   return errors
+}
+
+module.exports = {
+  name,
+  middleware,
+  defaultOptions,
+  checkOptions
 }
