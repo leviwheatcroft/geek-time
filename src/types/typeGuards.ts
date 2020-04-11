@@ -1,6 +1,7 @@
 import {
   is
 } from 'typescript-is'
+import _is from 'is'
 import mongoose from 'mongoose'
 import {
   TagModel
@@ -19,7 +20,16 @@ export function isTable (value: any): value is mongoose.Table {
   if (Array.isArray(value)) return true
 }
 export function isPlugin (value: any): value is mongoose.Plugin {
-  if (is<mongoose.Plugin>(value)) return true
+  const {
+    name,
+    middleware,
+    defaultOptions,
+    checkOptions
+  } = value
+  if (!_is.string(name)) return false
+  if (!_is.function(middleware)) return false
+  if (!_is.object(defaultOptions)) return false
+  if (!_is.function(checkOptions)) return false
 }
 export function isMongooseTagDocument (
   value: any

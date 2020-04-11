@@ -45,5 +45,5 @@ export function initialiseDb() {
 
 export async function disconnectDb() {
   const connection = await instance
-  connection.disconnect()
+  await connection.disconnect()
 }

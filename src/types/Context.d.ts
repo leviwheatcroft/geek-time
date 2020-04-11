@@ -16,7 +16,8 @@ declare module "mongoose" {
       info: (initial: any, ...rest: any) => void,
       warn:  (initial: any, ...rest: any) => void,
       error:  (initial: any, ...rest: any) => void
-    }
+    },
+    is: Is
   }
 }
 

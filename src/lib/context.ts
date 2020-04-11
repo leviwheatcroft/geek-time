@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import nconf from 'nconf'
+import is from 'is'
 import {
   silly,
   verbose,
@@ -7,9 +7,13 @@ import {
   warn,
   error
 } from '@lib/log'
-export function context (
-  table: mongoose.Table,
-  options: nconf.Provider
+import {
+  options
+} from './options'
+
+export function getContext (
+  options: Options,
+  table: mongoose.Table = []
 ): mongoose.Context {
   const tableMeta = {}
   return {
@@ -22,6 +26,7 @@ export function context (
       info,
       warn,
       error
-    }
+    },
+    is
   }
 }

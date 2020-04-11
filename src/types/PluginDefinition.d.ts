@@ -1,3 +1,5 @@
 interface PluginDefinition {
-  uri: string
+  [key: string]: any
+  module?: string
+  name?: string
 }

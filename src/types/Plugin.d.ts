@@ -1,7 +1,10 @@
 declare module "mongoose" {
   interface Plugin {
     name: string
-    input?: PluginHandler
-    output?: PluginHandler
+    middleware: Middleware
+    defaultOptions: {
+      [key: string]: any
+    },
+    checkOptions: (options: any) => Array<string>
   }
 }
