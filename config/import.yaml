@@ -7,3 +7,7 @@ plugins:
     include:
       - date
       - description
+  store:
+    module: geek-time-mongodb
+    middleware: store
+    mongoDbUri: "mongodb://localhost:27017/geektime"

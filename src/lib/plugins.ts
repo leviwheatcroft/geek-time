@@ -9,8 +9,10 @@ import {
   error,
   info
 } from './log'
+import {
+  nativeRequire
+} from './nativeRequire'
 import debug from 'debug'
-const dbg = debug('gt')
 
 import mongoose from 'mongoose'
 
@@ -20,19 +22,28 @@ export async function loadPlugins (
   pluginDefinitions: { [key: string]: PluginDefinition }
 ) {
   const _plugins = {}
-  const entries = Object.entries(pluginDefinitions)
-  for await (const [ name, definition ] of entries) {
+  Object.entries(pluginDefinitions).forEach(([name, definition]) => {
     const module = definition.module || definition.name || name
-    const plugin: mongoose.Plugin = await import(module)
-    .catch(() => import(`../../corePlugins/${module}`))
-    .catch(() => import(`../../plugins/${module}`))
-    .catch((err) => {
-      console.error(`couldn't load plugin: ${module}`)
-      throw err
-    })
-    
+    const paths = [
+      module,
+      `../corePlugins/${module}`,
+      `../plugins/${module}`
+    ]
+    let plugin
+    while (paths.length) {
+      try {
+        const path = paths.shift()
+        // eslint-disable-next-line import/no-dynamic-require, global-require
+        plugin = nativeRequire(path)
+      } catch (err) {
+        // noop
+      }
+    }
+    if (!plugin)
+      throw new Error(`couldn't load plugin: ${module}`)
+
     _plugins[name] = plugin
-  }
+  })
   plugins = _plugins
 }
 

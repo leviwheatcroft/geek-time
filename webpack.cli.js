@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const sizeAnalyzer = require('webpack-bundle-size-analyzer')
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
@@ -21,11 +22,12 @@ module.exports = {
       '.webpack.cli.txt'
     ),
     new webpack.BannerPlugin({
-      banner: "#!/usr/bin/env node",
+      banner: '#!/usr/bin/env node',
       raw: true
     })
   ],
   module: {
+    noParse: /nativeRequire.js/,
     rules: [
       {
         test: /\.tsx?$/,

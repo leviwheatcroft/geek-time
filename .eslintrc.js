@@ -22,7 +22,7 @@ module.exports = {
     'nonblock-statement-body-position': ['error', 'below'],
     'no-use-before-define': ['error', { functions: false } ],
     'no-underscore-dangle': 'off',
-    'curly': ['error', 'multi', 'consistent'],
+    'curly': ['error', 'multi-or-nest', 'consistent'],
     'operator-linebreak': ['error', 'after'],
     'no-param-reassign': ['error', { 'props': false }]
   }
