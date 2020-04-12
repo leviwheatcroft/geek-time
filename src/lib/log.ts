@@ -58,6 +58,8 @@ const logger = createLogger({
                     (field === undefined) ||
                     (field === null)
                   ) field = ''
+                  if (field === true) field = "true"
+                  if (field === false) field = "false"
                   if (!isString(field)) {
                     logger.error('couldn\'t convert field', { field })
                     throw new RangeError()
