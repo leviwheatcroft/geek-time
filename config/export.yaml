@@ -4,3 +4,7 @@ plugins:
     middleware: retrieve
     mongoDbUri: "mongodb://localhost:27017/geektime"
     includeTags: '#foo'
+  loadCsv:
+    module: csv
+    middleware: exportFile
+    file: out.csv

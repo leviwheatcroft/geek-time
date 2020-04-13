@@ -4,12 +4,13 @@ const {
 } = require('fs')
 
 const {
-  readFile
+  readFile,
+  writeFile
 } = fsPromises
 
 const name = 'loadCsv'
 
-async function middleware (ctx) {
+async function importFile (ctx) {
   const {
     table,
     pluginOptions: { file }
@@ -17,6 +18,15 @@ async function middleware (ctx) {
 
   const read = await readFile(file, 'utf-8')
   table.push(...toTable(read))
+}
+
+async function exportFile (ctx) {
+  const {
+    table,
+    pluginOptions: { file }
+  } = ctx
+  const csv = papa.unparse(table.map((r) => r.data))
+  await writeFile(file, csv)
 }
 
 function toTable (csv) {
@@ -67,7 +77,8 @@ function checkOptions (ctx) {
 
 module.exports = {
   name,
-  middleware,
+  importFile,
+  exportFile,
   defaultOptions,
   checkOptions
 }

@@ -1,5 +1,7 @@
 plugins:
   loadCsv:
+    module: csv
+    middleware: importFile
     file: test/testData.csv
   parseDate: {}
   parseTags: {}
