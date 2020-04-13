@@ -37,13 +37,13 @@ function toTable (csv) {
       rawRow = {
         _id: data.id,
         data,
-        meta: []
+        meta: {}
       }
       delete rawRow.data._id
     } else {
       rawRow = {
         data,
-        meta: []
+        meta: {}
       }
     }
     return rawRow
