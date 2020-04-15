@@ -2779,6 +2779,11 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
+jexl@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/jexl/-/jexl-2.2.2.tgz#eb06cd84684a52b6408be94604c5529f416ccd2f"
+  integrity sha512-HYDGbiZtGLbaxp1b0S7Nqbtegu5zhxaUBzsrMIpoEJDNr1M8lSuowpO7ziXldc/+wGGvwkZYQSS8mW2cPpiGgA==
+
 js-stringify@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/js-stringify/-/js-stringify-1.0.2.tgz#1736fddfd9724f28a3682adc6230ae7e4e9679db"

@@ -28,6 +28,7 @@
     "dotenv-flow": "^3.1.0",
     "geek-time-mongodb": "file:../geek-time-mongodb",
     "is": "^3.3.0",
+    "jexl": "^2.2.2",
     "moment": "^2.24.0",
     "mongoose": "^5.9.7",
     "mongoose-lean-id": "^0.2.0",
