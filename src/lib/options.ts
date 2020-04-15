@@ -37,9 +37,13 @@ export async function loadOptions () {
     throw err
   })
 
+  try {
+    await loadPlugins(fileOptions.plugins)
+  } catch (err) {
+    console.error('couldn\'t load plugins')
+    throw err
+  }
 
-  await loadPlugins(fileOptions.plugins)
-  
   const defaults = getDefaultOptions()
 
   const args = {}

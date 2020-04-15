@@ -1,0 +1,12 @@
+plugins:
+  retrieve:
+    module: geek-time-mongodb
+    middleware: retrieve
+    mongoDbUri: "mongodb://localhost:27017/geektime"
+    includeTags: "#foo"
+  block:
+    blocks:
+      - title: "#7422"
+        condition: "'#7422' in meta.tagNames"
+      - title: Other
+        condition: "!('#7422' in meta.tagNames)"

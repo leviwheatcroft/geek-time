@@ -7,12 +7,15 @@ import {
 import {
   verbose,
   error,
-  info
+  info,
+  verboseTable
 } from './log'
 import {
   nativeRequire
 } from './nativeRequire'
 import debug from 'debug'
+
+const dbg = debug('gt')
 
 import mongoose from 'mongoose'
 
@@ -73,14 +76,12 @@ export async function applyPlugins () {
   const ctx = getContext(options)
   const entries = Object.entries(plugins)
   for await (const [name, plugin] of entries) {
-    ctx.pluginOptions = options.plugins[name]
+    ctx.nextPlugin()
     const middlewareName = options.plugins[name].middleware || 'middleware'
     try {
       await plugin[middlewareName](ctx)
-      verbose(`${plugin.name} data:`, {
-        table: ctx.table,
-        tableMeta: ctx.tableMeta
-      })
+      verbose(`${plugin.name} data:`)
+      verboseTable(ctx.table)
     } catch (err) {
       error(`${plugin.name} threw error.`)
       error(err)
