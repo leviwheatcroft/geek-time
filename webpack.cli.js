@@ -27,7 +27,10 @@ module.exports = {
     })
   ],
   module: {
-    noParse: /nativeRequire.js/,
+    noParse: [
+      /nativeRequire.js/,
+      /\.yaml$/
+    ],
     rules: [
       {
         test: /\.tsx?$/,
@@ -45,10 +48,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ],
+    extensions: ['.tsx', '.ts', '.js']
   },
   output: {
     filename: 'cli.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-};
+    path: path.resolve(__dirname, 'dist')
+  }
+}
