@@ -93,9 +93,39 @@ const logger = createLogger({
   ]
 })
 
+function logTable (table, level) {
+  const levels = [
+    'error',
+    'warn',
+    'info',
+    'verbose',
+    'debug',
+    'silly'
+  ]
+  if (levels.indexOf(level) < levels.indexOf(logLevelConsole)) return
+  const rows = table.map((row) => {
+    return Object.assign(
+      {},
+      row.data,
+      Object.fromEntries(
+        Object.entries(row.meta).map(([k,v]) => {
+          return [`_${k}`, v]
+        })
+      )
+    )
+  })
+  console.table(rows)
+}
+
 export const error = logger.error.bind(logger)
 export const warn = logger.warn.bind(logger)
 export const info = logger.info.bind(logger)
 export const verbose = logger.verbose.bind(logger)
 export const debug = logger.debug.bind(logger)
 export const silly = logger.silly.bind(logger)
+export const errorTable = (table) => logTable(table, 'error')
+export const warnTable = (table) => logTable(table, 'warn')
+export const infoTable = (table) => logTable(table, 'info')
+export const verboseTable = (table) => logTable(table, 'verbose')
+export const debugTable = (table) => logTable(table, 'debug')
+export const sillyTable = (table) => logTable(table, 'silly')
