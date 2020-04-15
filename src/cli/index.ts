@@ -6,7 +6,8 @@ import {
 } from '@lib/options'
 import dotEnv from 'dotenv-flow'
 import {
-  applyPlugins
+  applyPlugins,
+  checkOptions
 } from '@lib/plugins'
 
 dotEnv.config()
@@ -14,6 +15,7 @@ dotEnv.config()
 async function run () {
   try {
     await loadOptions()
+    checkOptions()
   } catch (err) {
     error('error loading options')
     error(err)

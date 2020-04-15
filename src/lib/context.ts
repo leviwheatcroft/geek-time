@@ -12,6 +12,7 @@ export function getContext (
     table: [],
     tableMeta: {},
     pluginOptions: {},
+    is
   }
 
   const plugins = Object.keys(options.plugins)

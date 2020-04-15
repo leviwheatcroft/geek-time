@@ -10,3 +10,5 @@ plugins:
         condition: "'#7422' in meta.tagNames"
       - title: Other
         condition: "!('#7422' in meta.tagNames)"
+    sumColumns:
+      - blocks

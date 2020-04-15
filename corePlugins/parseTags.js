@@ -74,22 +74,22 @@ function checkOptions (ctx) {
   const errors = []
   if (
     (!is.array(autoSingleTag)) ||
-    (!is.all.string(...autoSingleTag))
+    (!autoSingleTag.every(is.string))
   )
     errors.push('autoSingleTag must be array of strings')
   if (
     (!is.array(autoMultiTag)) ||
-    (!is.all.string(...autoMultiTag))
+    (!autoMultiTag.every(is.string))
   )
     errors.push('autoMultiTag must be array of strings')
   if (
     (!is.array(include)) ||
-    (!is.all.string(...include))
+    (!include.every(is.string))
   )
     errors.push('include must be array of strings')
   if (
     (!is.array(exclude)) ||
-    (!is.all.string(...exclude))
+    (!exclude.every(is.string))
   )
     errors.push('exclude must be array of strings')
 

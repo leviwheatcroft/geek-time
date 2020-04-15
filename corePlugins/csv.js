@@ -31,23 +31,31 @@ async function exportFile (ctx) {
 
 function toTable (csv) {
   const parsed = papa.parse(csv, { header: true })
-  const table = parsed.data.map((data) => {
-    let rawRow
-    if (data.id) {
-      rawRow = {
-        _id: data.id,
-        data,
-        meta: {}
+  const table = parsed.data
+    // discard empty rows
+    .filter((data) => {
+      // eslint-disable-next-line eqeqeq
+      if (Object.values(data).every((v) => v == false))
+        return false
+      return true
+    })
+    .map((data) => {
+      let rawRow
+      if (data.id) {
+        rawRow = {
+          _id: data.id,
+          data,
+          meta: {}
+        }
+        delete rawRow.data._id
+      } else {
+        rawRow = {
+          data,
+          meta: {}
+        }
       }
-      delete rawRow.data._id
-    } else {
-      rawRow = {
-        data,
-        meta: {}
-      }
-    }
-    return rawRow
-  })
+      return rawRow
+    })
   return table
 }
 

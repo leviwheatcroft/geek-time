@@ -3,12 +3,14 @@ plugins:
     module: csv
     middleware: importFile
     file: test/testData.csv
+  parseNumber: {}
   parseDate: {}
   parseTags: {}
   selectColumns:
     include:
       - date
       - description
+      - blocks
   store:
     module: geek-time-mongodb
     middleware: store

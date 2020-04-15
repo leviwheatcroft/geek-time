@@ -13,8 +13,10 @@ function middleware (ctx) {
       sumColumns
     },
     log: {
-      error
-    }
+      error,
+      debug
+    },
+    is
   } = ctx
   const _blocks = Object.fromEntries(blocks.map((b) => [b.title, []]))
   table.forEach((row) => {
@@ -48,9 +50,14 @@ function middleware (ctx) {
         },
         meta: []
       }
+      debug('initial totals', { totals })
       rows.forEach((row) => {
         sumColumns.forEach((sumColumn) => {
+          if (!is.number(row.data[sumColumn]))
+            return
           totals.data[sumColumn] += row.data[sumColumn]
+          debug(row.data[sumColumn])
+          debug(totals.data[sumColumn])
         })
       })
       totals.data[firstColumn] = `Total ${title}`
