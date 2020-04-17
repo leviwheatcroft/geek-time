@@ -3,7 +3,6 @@ plugins:
     module: geek-time-mongodb
     middleware: retrieve
     mongoDbUri: "mongodb://localhost:27017/geektime"
-    includeTags: '#foo'
   writeCsv:
     module: csv
     middleware: exportFile

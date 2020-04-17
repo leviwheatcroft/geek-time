@@ -7,10 +7,8 @@ plugins:
   parseDate: {}
   parseTags: {}
   selectColumns:
-    include:
-      - date
-      - description
-      - blocks
+    exclude:
+      - start time
   store:
     module: geek-time-mongodb
     middleware: store
