@@ -13,8 +13,7 @@ function middleware (ctx) {
       sumColumns
     },
     log: {
-      error,
-      debug
+      error
     },
     is
   } = ctx
@@ -31,6 +30,8 @@ function middleware (ctx) {
     }
   })
   Object.entries(_blocks).forEach(([title, rows]) => {
+    if (!rows.length)
+      return
     const firstColumn = Object.keys(rows[0].data)[0]
 
     // add heading to block
@@ -50,14 +51,11 @@ function middleware (ctx) {
         },
         meta: []
       }
-      debug('initial totals', { totals })
       rows.forEach((row) => {
         sumColumns.forEach((sumColumn) => {
           if (!is.number(row.data[sumColumn]))
             return
           totals.data[sumColumn] += row.data[sumColumn]
-          debug(row.data[sumColumn])
-          debug(totals.data[sumColumn])
         })
       })
       totals.data[firstColumn] = `Total ${title}`

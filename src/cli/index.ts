@@ -1,16 +1,19 @@
+import dotEnv from 'dotenv-flow'
+dotEnv.config()
+
 import {
   error
 } from '@lib/log'
 import {
   loadOptions
 } from '@lib/options'
-import dotEnv from 'dotenv-flow'
+
 import {
   applyPlugins,
   checkOptions
 } from '@lib/plugins'
 
-dotEnv.config()
+
 
 async function run () {
   try {

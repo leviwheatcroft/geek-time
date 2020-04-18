@@ -3,7 +3,8 @@ plugins:
     module: csv
     middleware: importFile
     file: test/testData.csv
-  parseNumber: {}
+  parseNumber:
+    middleware: serialise
   parseDate: {}
   parseTags: {}
   selectColumns:

@@ -8,7 +8,8 @@ import {
   verbose,
   error,
   info,
-  verboseTable
+  verboseTable,
+  errorTable
 } from './log'
 import {
   nativeRequire
@@ -85,10 +86,7 @@ export async function applyPlugins () {
     } catch (err) {
       error(`${plugin.name} threw error.`)
       error(err)
-      error(`${plugin.name} data:`, {
-        table: ctx.table,
-        tableMeta: ctx.tableMeta
-      })
+      errorTable(ctx.table)
     }
   }
 }

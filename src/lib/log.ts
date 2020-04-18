@@ -102,7 +102,7 @@ function logTable (table, level) {
     'debug',
     'silly'
   ]
-  if (levels.indexOf(level) < levels.indexOf(logLevelConsole)) return
+  if (levels.indexOf(level) > levels.indexOf(logLevelConsole)) return
   const rows = table.map((row) => {
     return Object.assign(
       {},

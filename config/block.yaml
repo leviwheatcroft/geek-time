@@ -3,7 +3,7 @@ plugins:
     module: geek-time-mongodb
     middleware: retrieve
     mongoDbUri: "mongodb://localhost:27017/geektime"
-    includeTags: "#foo"
+    includeTags: "#7425"
   block:
     blocks:
       - title: "#7422"
@@ -12,3 +12,5 @@ plugins:
         condition: "!('#7422' in meta.tagNames)"
     sumColumns:
       - blocks
+  parseNumber:
+    middleware: deserialise
